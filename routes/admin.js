@@ -70,7 +70,9 @@ router.get('/teachers/:id',cors.cors, authenticate.verifyUser, function(req, res
 
 });
 //POST Operations
-router.post('/addteacher',cors.cors, authenticate.verifyUser,authenticate.verifyAdmin, function(req, res, next) {
+router.post('/addteacher',cors.corsWithOptions, authenticate.verifyUser,authenticate.verifyAdmin, function(req, res, next) {
+    console.log(req.body.name);
+    console.log(req.body.designation);
     Teacher.create(req.body)
         .then((teacher) => {
             console.log('Teacher has been Added ', teacher);

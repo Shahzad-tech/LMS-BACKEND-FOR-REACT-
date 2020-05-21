@@ -16,7 +16,8 @@ var opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = config.secretKey;
 passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-    User.findOne({id: jwt_payload.sub}, function(err, user) {
+    
+    User.findOne({_id: jwt_payload._id}, function(err, user) {
         if (err) {
             return done(err, false);
         }
@@ -30,8 +31,11 @@ passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
 }));
 
 exports.verifyUser = passport.authenticate('jwt', { session: false });
+
 exports.verifyAdmin = (req, res, next) => {
+    console.log(req.user._id);    
     User.findOne({ _id: req.user._id }, (err, user) => {
+        console.log(user.admin);
         if (err) {
             return next(err);
         } else if (user.admin) {
