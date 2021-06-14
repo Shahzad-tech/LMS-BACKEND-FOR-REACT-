@@ -4,24 +4,6 @@ var Marks = require('../models/studentmarks');
 const cors = require('./cors');
 var authenticate = require('../authenticate');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-
-// router.post('/marks/:marks/:sid', function (req, res, next){
-//   Marks.findOneAndUpdate({ _id: req.params.sid }, {
-//         "marks": req.params.marks
-//         }    
-// , { new: true, upsert: false },
-// function(error, results) {
-//     if (error) {
-//         return next(error);
-//     }
-//     // Respond with valid data
-//     res.json(results);
-// });
-
 
 router.post('/createmarks',cors.cors, authenticate.verifyUser,authenticate.verifyAdmin, function(req, res, next) {
   Marks.create(req.body)
