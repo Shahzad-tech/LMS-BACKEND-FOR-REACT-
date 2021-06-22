@@ -22,7 +22,7 @@ router.get('/classes',cors.cors, authenticate.verifyUser, function(req, res, nex
         res.json(results);
     });
 });
-router.get('/students',cors.cors, authenticate.verifyUser, function(req, res, next) {
+router.get('/students', function(req, res, next) {
     Student.find().sort('name').exec(function(error, results) {
         if (error) {
             return next(error);
