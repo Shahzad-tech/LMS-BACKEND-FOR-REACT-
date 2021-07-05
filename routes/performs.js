@@ -1,6 +1,45 @@
+Names = require('../models/Names');
+Performance = require('../models/Performance');
+
 var express = require('express');
 var router = express.Router();
 var Marks = require('../models/studentmarks');
+
+router.post('/names', function(req, res, next) { 
+  Names.create(req.body)
+      .then((marks) => {
+          console.log('marks created', marks);
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json(marks);
+      }, (err) => next(err))
+      .catch((err) => next(err));
+});
+
+
+
+router.post('/addreview', function(req, res, next) { 
+  Performance.create(req.body)
+      .then((marks) => {
+          console.log('marks created', marks);
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json(marks);
+      }, (err) => next(err))
+      .catch((err) => next(err));
+});
+
+
+router.get('/reviews',function(req, res, next) {  
+ 
+  Performance.find({}).populate('Names').exec(function(error, results) {
+      if (error) {
+          return next(error);
+      }   
+      res.json(results);
+  });
+});
+
 
 router.post('/createmarks', function(req, res, next) { //create marks route
   Marks.create(req.body)

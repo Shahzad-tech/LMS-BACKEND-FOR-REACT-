@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 var studentRouter = require('./routes/student');
-var teacherRouter = require('./routes/teacher');
+var teacherRouter = require('./routes/performs');
 var headRouter = require('./routes/head');
 var passport = require('passport');
 var config = require('./config');
@@ -33,9 +33,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/head', headRouter);
-app.use('/teacher', teacherRouter);
+app.use('/perform', teacherRouter);
 app.use('/admin', adminRouter);
 app.use('/student', studentRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
